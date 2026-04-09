@@ -60,7 +60,7 @@ const experiences: Item[] = [
     role: "FOUNDER",
     year: "2018–2022",
     iconFallback: "SH",
-    preview: { type: "text", message: "The OG hustle." },
+    preview: { type: "text", message: "Favorite shoe line: Kobe's" },
   },
 ];
 
@@ -114,8 +114,14 @@ function ItemCard({
 }) {
   const [hovered, setHovered] = useState(false);
 
-  const handleEnter = () => { setHovered(true); onHover(item); };
-  const handleLeave = () => { setHovered(false); onLeave(); };
+  const handleEnter = () => {
+    setHovered(true);
+    onHover(item);
+  };
+  const handleLeave = () => {
+    setHovered(false);
+    onLeave();
+  };
 
   const card = (
     <div
@@ -155,9 +161,16 @@ function ItemCard({
           }}
         >
           {item.iconSrc ? (
-            <img src={item.iconSrc} alt={item.name} className="w-full h-full object-cover" />
+            <img
+              src={item.iconSrc}
+              alt={item.name}
+              className="w-full h-full object-cover"
+            />
           ) : (
-            <span className="text-xs font-serif font-bold tracking-wide" style={{ color: "var(--accent)" }}>
+            <span
+              className="text-xs font-serif font-bold tracking-wide"
+              style={{ color: "var(--accent)" }}
+            >
               {item.iconFallback}
             </span>
           )}
@@ -166,7 +179,10 @@ function ItemCard({
         {/* Name + description */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-sm md:text-base font-serif tracking-wide truncate" style={{ color: "#F0F0F0" }}>
+            <span
+              className="text-sm md:text-base font-serif tracking-wide truncate"
+              style={{ color: "#F0F0F0" }}
+            >
               {item.name}
             </span>
             {item.badges?.map((b) => (
@@ -175,7 +191,10 @@ function ItemCard({
                 className="text-[9px] px-2 py-0.5 rounded-full tracking-widest font-sans flex-shrink-0"
                 style={
                   b.style === "incoming"
-                    ? { border: "1px solid var(--accent)", color: "var(--accent)" }
+                    ? {
+                        border: "1px solid var(--accent)",
+                        color: "var(--accent)",
+                      }
                     : { background: "#333", color: "#fff" }
                 }
               >
@@ -183,18 +202,27 @@ function ItemCard({
               </span>
             ))}
           </div>
-          <p className="text-[10px] tracking-widest mt-0.5 truncate" style={{ color: "var(--muted)" }}>
+          <p
+            className="text-[10px] tracking-widest mt-0.5 truncate"
+            style={{ color: "var(--muted)" }}
+          >
             {item.desc}
           </p>
         </div>
 
         {/* Role + year */}
         <div className="flex-shrink-0 text-right ml-2">
-          <div className="text-[10px] tracking-widest uppercase" style={{ color: "#B0B0B0" }}>
+          <div
+            className="text-[10px] tracking-widest uppercase"
+            style={{ color: "#B0B0B0" }}
+          >
             {item.role}
           </div>
           {item.year && (
-            <div className="text-[10px] tracking-wider mt-0.5" style={{ color: "#555" }}>
+            <div
+              className="text-[10px] tracking-wider mt-0.5"
+              style={{ color: "#555" }}
+            >
               {item.year}
             </div>
           )}
@@ -206,7 +234,16 @@ function ItemCard({
             className="flex-shrink-0 transition-opacity duration-200 ml-1"
             style={{ color: "var(--accent)", opacity: hovered ? 1 : 0 }}
           >
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg
+              width="11"
+              height="11"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
               <polyline points="15 3 21 3 21 9" />
               <line x1="10" y1="14" x2="21" y2="3" />
@@ -220,7 +257,12 @@ function ItemCard({
   if (item.href) {
     const isExternal = item.href.startsWith("http");
     return (
-      <a href={item.href} target={isExternal ? "_blank" : "_self"} rel={isExternal ? "noopener noreferrer" : undefined} className="block">
+      <a
+        href={item.href}
+        target={isExternal ? "_blank" : "_self"}
+        rel={isExternal ? "noopener noreferrer" : undefined}
+        className="block"
+      >
         {card}
       </a>
     );
@@ -229,20 +271,38 @@ function ItemCard({
 }
 
 function SectionHeader({
-  label, title, isVisible, slideFrom,
+  label,
+  title,
+  isVisible,
+  slideFrom,
 }: {
-  label: string; title: string; isVisible: boolean; slideFrom: "left" | "right";
+  label: string;
+  title: string;
+  isVisible: boolean;
+  slideFrom: "left" | "right";
 }) {
   return (
     <div
       className="mb-8 transition-[transform,opacity] duration-700 ease-out"
       style={{
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "translateX(0)" : `translateX(${slideFrom === "left" ? "-24px" : "24px"})`,
+        transform: isVisible
+          ? "translateX(0)"
+          : `translateX(${slideFrom === "left" ? "-24px" : "24px"})`,
       }}
     >
-      <div className="text-[9px] tracking-[0.35em] mb-2 uppercase" style={{ color: "#444" }}>{label}</div>
-      <h2 className="text-3xl md:text-4xl font-serif tracking-wide" style={{ color: "#F0F0F0" }}>{title}</h2>
+      <div
+        className="text-[9px] tracking-[0.35em] mb-2 uppercase"
+        style={{ color: "#444" }}
+      >
+        {label}
+      </div>
+      <h2
+        className="text-3xl md:text-4xl font-serif tracking-wide"
+        style={{ color: "#F0F0F0" }}
+      >
+        {title}
+      </h2>
       <div className="mt-3 h-px w-10" style={{ background: "var(--accent)" }} />
     </div>
   );
@@ -263,11 +323,13 @@ export default function Experience() {
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.15 },
     );
     const section = document.getElementById("experience");
     if (section) observer.observe(section);
-    return () => { if (section) observer.unobserve(section); };
+    return () => {
+      if (section) observer.unobserve(section);
+    };
   }, []);
 
   return (
@@ -283,7 +345,12 @@ export default function Experience() {
     >
       {/* Left — Experience */}
       <div className="w-full md:w-1/2 flex flex-col justify-center">
-        <SectionHeader label="Career" title="EXPERIENCE" isVisible={isVisible} slideFrom="left" />
+        <SectionHeader
+          label="Career"
+          title="EXPERIENCE"
+          isVisible={isVisible}
+          slideFrom="left"
+        />
         <div className="space-y-2">
           {experiences.map((exp, i) => (
             <ItemCard
@@ -301,7 +368,12 @@ export default function Experience() {
 
       {/* Right — Projects */}
       <div className="w-full md:w-1/2 flex flex-col justify-center">
-        <SectionHeader label="Work" title="PROJECTS" isVisible={isVisible} slideFrom="right" />
+        <SectionHeader
+          label="Work"
+          title="PROJECTS"
+          isVisible={isVisible}
+          slideFrom="right"
+        />
         <div className="space-y-2">
           {projects.map((proj, i) => (
             <ItemCard
@@ -325,11 +397,32 @@ export default function Experience() {
             transitionDelay: "520ms",
           }}
         >
-          <div className="relative overflow-hidden" style={{ height: "120px", border: "1px solid var(--border-subtle)" }}>
-            <img src="/images/dome.jpeg" alt="Philosophy" className="w-full h-full object-cover" style={{ opacity: 0.5 }} />
+          <div
+            className="relative overflow-hidden"
+            style={{
+              height: "120px",
+              border: "1px solid var(--border-subtle)",
+            }}
+          >
+            <img
+              src="/images/dome.jpeg"
+              alt="Philosophy"
+              className="w-full h-full object-cover"
+              style={{ opacity: 0.5 }}
+            />
             <div className="absolute inset-0 flex flex-col justify-center items-center text-center">
-              <div className="text-2xl font-serif mb-1" style={{ color: "#F0F0F0" }}>追求卓越</div>
-              <div className="text-[9px] tracking-[0.35em]" style={{ color: "#ccc" }}>PURSUE EXCELLENCE</div>
+              <div
+                className="text-2xl font-serif mb-1"
+                style={{ color: "#F0F0F0" }}
+              >
+                追求卓越
+              </div>
+              <div
+                className="text-[9px] tracking-[0.35em]"
+                style={{ color: "#ccc" }}
+              >
+                PURSUE EXCELLENCE
+              </div>
             </div>
           </div>
         </div>
@@ -351,13 +444,21 @@ export default function Experience() {
           className="w-full h-full relative overflow-hidden"
           style={{
             border: "1px solid rgba(255,255,255,0.1)",
-            boxShadow: "0 32px 64px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.04)",
+            boxShadow:
+              "0 32px 64px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.04)",
             borderRadius: "10px",
           }}
         >
           {hoveredItem?.preview.type === "video" && hoveredItem.preview.src && (
             <>
-              <div className="absolute inset-0 flex items-center justify-center" style={{ background: "#0A0A0A", color: "#444", fontSize: "11px" }}>
+              <div
+                className="absolute inset-0 flex items-center justify-center"
+                style={{
+                  background: "#0A0A0A",
+                  color: "#444",
+                  fontSize: "11px",
+                }}
+              >
                 Loading preview...
               </div>
               <video
@@ -374,10 +475,23 @@ export default function Experience() {
             </>
           )}
           {hoveredItem?.preview.type === "text" && (
-            <div className="w-full h-full flex flex-col items-center justify-center gap-2" style={{ background: "#0A0A0A" }}>
-              <div className="text-sm font-serif tracking-wide" style={{ color: "#F0F0F0" }}>{hoveredItem.preview.message}</div>
+            <div
+              className="w-full h-full flex flex-col items-center justify-center gap-2"
+              style={{ background: "#0A0A0A" }}
+            >
+              <div
+                className="text-sm font-serif tracking-wide"
+                style={{ color: "#F0F0F0" }}
+              >
+                {hoveredItem.preview.message}
+              </div>
               {hoveredItem.href && (
-                <div className="text-[9px] tracking-widest" style={{ color: "var(--accent)" }}>↗ OPEN</div>
+                <div
+                  className="text-[9px] tracking-widest"
+                  style={{ color: "var(--accent)" }}
+                >
+                  ↗ OPEN
+                </div>
               )}
             </div>
           )}

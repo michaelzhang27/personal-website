@@ -1,6 +1,7 @@
 "use client";
 
 import ModelViewer from "../components/ModelViewer";
+import LoadingPortal from "../components/LoadingPortal";
 import { useRef, useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -49,6 +50,8 @@ export default function Home() {
   const picturesRef = useRef<HTMLDivElement>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
   const [picturesVisible, setPicturesVisible] = useState(false);
+  const [modelLoaded, setModelLoaded] = useState(false);
+  const [portalDone, setPortalDone] = useState(false);
 
   // Generated client-side only (useEffect) to avoid SSR/client hydration mismatch.
   // Jittered uniform distribution: divides the x-axis into equal segments then
@@ -112,6 +115,12 @@ export default function Home() {
 
   return (
     <div className="relative">
+      {!portalDone && (
+        <LoadingPortal
+          isLoaded={modelLoaded}
+          onDone={() => setPortalDone(true)}
+        />
+      )}
       {/* Global animated background layer — sits behind the transparent canvas */}
       <div
         className="fixed inset-0 pointer-events-none overflow-hidden"
@@ -196,7 +205,7 @@ export default function Home() {
         ))}
       </div>
 
-      <ModelViewer />
+      <ModelViewer onModelLoaded={() => setModelLoaded(true)} />
 
       {/* Hero spacer */}
       <div className="h-screen" />

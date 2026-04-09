@@ -5,6 +5,16 @@ import { useGLTF, Environment } from "@react-three/drei";
 import { Suspense, useRef, useEffect, useState } from "react";
 import * as THREE from "three";
 
+// Mounts inside Suspense — only renders once useGLTF has resolved,
+// giving us a reliable "model is ready" signal.
+function LoadNotifier({ onLoad }: { onLoad: () => void }) {
+  useEffect(() => {
+    onLoad();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return null;
+}
+
 function Model({
   scrollProgress,
   screenHeight,
@@ -76,7 +86,7 @@ function Model({
   return <primitive ref={modelRef} object={scene} scale={[4, 4, 4]} />;
 }
 
-export default function ModelViewer() {
+export default function ModelViewer({ onModelLoaded }: { onModelLoaded?: () => void }) {
   const [scrollY, setScrollY] = useState(0);
   const [galleryScrollComplete, setGalleryScrollComplete] = useState(false);
   const [galleryStartScrollY, setGalleryStartScrollY] = useState(0);
@@ -155,6 +165,7 @@ export default function ModelViewer() {
             galleryStartScrollY={galleryStartScrollY}
           />
           <Environment preset="sunset" />
+          {onModelLoaded && <LoadNotifier onLoad={onModelLoaded} />}
         </Suspense>
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 10, 5]} intensity={1} />
